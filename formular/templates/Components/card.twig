@@ -1,0 +1,27 @@
+{% for card in cards %}
+	<div class="card" style="{{ style|default('width: 18rem;') }}">
+		{% if card.img_src is defined and card.img_src %}
+			<img src="{{ card.img_src }}" class="card-img-top" alt="...">
+		{% endif %}
+		<div class="card-body">
+			<h5 class="card-title">{{ card.title|default('Title') }}</h5>
+			<p class="card-text">{{ card.text|default('Some Text') }}</p>
+		</div>
+
+		{% if card.card_item is defined %}
+			<ul class="list-group list-group-flush">
+				{% for item in card.card_item %}
+					<li class="list-group-item">{{ item.text|default('Item') }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		{% if card.card_link is defined %}
+			<div class="card-body">
+				{% for link in card.card_link %}
+					<a href="{{ link.link|default('#') }}" class="card-link">{{ link.text|default('Link') }}</a>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+{% endfor %}

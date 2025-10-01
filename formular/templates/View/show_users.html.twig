@@ -1,0 +1,23 @@
+{% extends "base.twig" %}
+
+{% block title %}
+	User Table
+{% endblock %}
+
+{% block content %}
+	{{ alerts|raw }}
+	{% include 'table.twig' with {
+        'form_action': form_action,
+        'form_method': form_method,
+        'table_rows': table_rows,
+        'input_data': input_data,
+        'select_data': select_data,
+        'show_buttons': true,
+        'buttons': buttons,
+    } %}
+	{% include 'table_filter.twig' %}
+
+	{# Render the user table #}
+	{% include 'table_user.twig' with {show_buttons: true} %}
+
+{% endblock %}

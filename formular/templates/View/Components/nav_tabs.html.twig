@@ -1,0 +1,79 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Nav Tabs and Pills
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'nav_tabs.twig' with {
+                'items': nav_tabs
+                } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'nav_pills.twig' with {
+                'items': nav_pills
+                } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'nav_pills.twig' with {
+                'items': nav_dropdown.items,
+                } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic nav_base.twig #}
+{% if type == "nav-tabs" %}
+	<ul class="nav {{ type }}">
+		{% for item in items %}
+			<li class="nav-item">
+				{% if item.dropdown_items is defined %}
+					{% include "dropdown_button.twig" with {
+                        "dropdown_label": item.text,
+                        "dropdown_items": item.dropdown_items,
+                        "button_type": item.button_type|default("primary")
+                    } %}
+				{% else %}
+					<a class="nav-link {% if item.active %}active{% endif %}" href="{{ item.link }}">
+						{{ item.text }}
+					</a>
+				{% endif %}
+			</li>
+		{% endfor %}
+	</ul>
+{% else %}
+	<nav class="nav {{ type }}">
+		{% for item in items %}
+			{% if item.dropdown_items is defined %}
+				{% include "dropdown_button.twig" with {
+                    "dropdown_label": item.text,
+                    "dropdown_items": item.dropdown_items,
+                    "button_type": item.button_type|default("primary")
+                } %}
+			{% else %}
+				<a class="nav-link {% if item.active %}active{% endif %}" href="{{ item.link }}">
+					{{ item.text }}
+				</a>
+			{% endif %}
+		{% endfor %}
+	</nav>
+{% endif %}
+
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+/formular/public/info.php
+/formular/db-data
+/formular/local-data
+/formular/local-data-backup
+/formular/.vscode
+test.py
+/.vscode
+/formular/vendor
+/backup
+/formular/var
+.env

@@ -1,0 +1,5 @@
+
+[2024-10-28T10:13:15.285560+01:00] my_logger.INFO: My logger is now ready [] []
+[2024-10-28T10:13:32.735614+01:00] my_logger.INFO: My logger is now ready [] []
+[2024-10-28T11:06:03.738768+01:00] my_logger.INFO: Successfully rendered Navbar [] []
+[2024-10-28T11:13:11.593072+01:00] my_logger.INFO: Successfully rendered Navbar [] []

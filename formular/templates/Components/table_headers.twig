@@ -1,0 +1,17 @@
+<tr>
+	{% for columnName in columnNames %}
+		{% set displayColumnName = columnName %}
+		{# Rename 'role_id' column to 'role_name (role_id)' #}
+		{% if columnName == 'role_id' %}
+			{% set displayColumnName = 'role_name (role_id)' %}
+		{% endif %}
+		<th>{{ displayColumnName }}</th>
+	{% endfor %}
+
+	{% if editing %}
+		<th>Edit</th>
+		{% if role_id == 1 %}
+			<th>Delete</th>
+		{% endif %}
+	{% endif %}
+</tr>

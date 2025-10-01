@@ -1,0 +1,64 @@
+<div class="table-responsive">
+	<table class="table table-bordered table-hover table-striped table-users">
+		<thead>
+			{% include 'table_headers.twig' with { editing: show_buttons } %}
+		</thead>
+		<tbody>
+			{% for user in users %}
+				{% if role_id <= user.role_id %}
+					<tr>
+						<td>{{ user.id }}</td>
+						<td>{{ user.created }}</td>
+						<td>{{ user.updated }}</td>
+						<td>{{ user.username }}</td>
+						<td>{{ user.email }}</td>
+						<td class="hashed-password">{{ user.password[:5] ~ '...' }}</td>
+						<td>{{ user.comment }}</td>
+						<td>{{ user.role_name }}
+							({{ user.role_id }})</td>
+						<td>{{ user.pwd_reset_pending == 0 ? 'No' : 'Yes' }}</td>
+
+						{# Conditionally show the buttons if required #}
+						{% if show_buttons %}
+							<td>
+								{% include 'buttons.twig' with {
+                                buttons: [
+                                    {
+                                        text: 'Edit',
+                                        class: 'btn btn-success btn-sm',
+                                        form_action: 'edit_user_page.php',
+                                        form_method: 'get',
+                                        hidden: { id: user.id|url_encode }
+                                    }
+                                ]
+                            } %}
+							</td>
+
+							{% if role_id == 1 %}
+								<td>
+									{% include 'buttons.twig' with {
+                                    buttons: [
+                                        {
+                                            text: 'DELETE',
+                                            class: 'btn btn-danger btn-sm',
+                                            form_action: '',
+                                            form_method: 'post',
+                                            onsubmit: 'return confirmDelete(event);',
+                                            hidden: {
+                                                id: user.id,
+                                                username: user.username,
+                                                action: 'delete_user'
+                                            }
+                                        }
+                                    ]
+                                } %}
+								{% endif %}
+							</td>
+
+						{% endif %}
+					</tr>
+				{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

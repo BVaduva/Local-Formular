@@ -1,0 +1,79 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-{{ modal_button|default('primary') }}" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
+    {{ button_text }}
+</button>
+
+<div class="modal fade" id="{{ modal_id }}" 
+    {% if static is defined and static %} data-bs-backdrop="static" {% endif %} 
+    tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
+
+    <!-- Modal Dialog -->
+    <div class="modal-dialog {{ size|default('modal-md') }} {% if scrollable %} modal-dialog-scrollable {% endif %}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{ modal_id }}Label">{{ title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% if body_header is defined and body_header %}
+                    <h2 class="fs-5">{{ body_header }}</h2>
+
+                    {% if popover is defined and popover %}
+                        <p>
+                            <button class="btn btn-{{ popover_button|default('secondary') }}" 
+                                data-bs-toggle="popover" 
+                                title="{{ popover_title|default('popover title') }}" 
+                                data-bs-content="{{ popover_content|default('popover content') }}">
+                                {{ popover_body_content|default('popover body content') }}
+                            </button>
+                        </p>
+                    {% endif %}
+
+                    {% if tooltip is defined and tooltip %}
+                        <p>
+                            <a href="{{ tooltip_link|default('#') }}" 
+                               data-bs-toggle="tooltip" 
+                               title="{{ tooltip_content|default('tooltip content') }}">
+                                {{ tooltip_body_content|default('Tooltip body content') }}
+                            </a>
+                        </p>
+                    {% endif %}
+                {% endif %}
+
+                {{ content|raw }}
+            </div>
+            <div class="modal-footer">
+                {% for button in buttons %}
+                    <button type="button" class="btn btn-{{ button.class|default('primary') }}" 
+                        {% if button.dismiss %} data-bs-dismiss="modal" {% endif %}>
+                        {{ button.text }}
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Available Options: #}
+{# 
+    - modal_id: Unique identifier for the modal (required).
+    - size: Sets the size of the modal. Options include:
+        - modal-sm (small)
+        - modal-md (medium) [default]
+        - modal-lg (large)
+        - modal-xl (extra large)
+
+    - scrollable: Boolean option to make the modal body scrollable if content overflows. 
+      If true, add the class 'modal-dialog-scrollable' to the modal dialog.
+    
+    - static: HAS to be initiated and set to false, if backdrop isn't wanted.
+
+    - title: The title text displayed in the modal header (required).
+  
+    - content: The main content to be displayed in the modal body (required).
+  
+    - buttons: An array of button objects to be rendered in the modal footer. Each button object should contain:
+        - text: The label displayed on the button (required).
+        - class: The CSS class to apply to the button for styling (e.g., 'btn-primary', 'btn-secondary').
+        - dismiss: Enable closing the modal with button containing 'dismiss' => true
+#}

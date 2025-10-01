@@ -1,0 +1,24 @@
+{% if show %}
+	<div
+		style="position: fixed; bottom: 0; left: 0; background: #f8d7da; color: #721c24; padding: 10px;">
+		<!--<strong>Debug Info:</strong><br>-->
+		<strong>Session Data:</strong><br>
+		{% for key in ['login_state', 'username', 'role_id', 'id', 'email',] %}
+			{{ key }}:
+			{{ session.get(key, 'N/A') }}<br>
+		{% endfor %}
+
+		<strong>POST Data:</strong><br>
+		{% for key, value in request.getAllPost() %}
+			{{ key }}:
+			{{ value }}<br>
+		{% endfor %}
+
+		<strong>GET Data:</strong><br>
+		{% for key, value in request.getAllGet() %}
+			{{ key }}:
+			{{ value }}<br>
+		{% endfor %}
+
+	</div>
+{% endif %}

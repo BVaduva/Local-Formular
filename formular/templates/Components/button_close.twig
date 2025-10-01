@@ -1,0 +1,5 @@
+<form action="{{ button.form_action }}" method="{{ button.form_method}}" style="display:inline;" {% if button.onsubmit %} onsubmit="{{ button.onsubmit }}" {% endif %}>
+	<button type="{{ button.type|default('submit') }}" class="{{ button.class|default('btn btn-primary') }}" id="{{ button.id|default('submitButton') }}">
+		{{ button.text }}
+		<button type="button" class="btn-close" aria-label="Close"></button>
+	</button>

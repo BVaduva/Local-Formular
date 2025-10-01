@@ -1,0 +1,8 @@
+<div class="d-flex align-items-center">
+	<div class="spinner-{{ type|default('border') }} text-{{ color|default('primary') }}" role="status"></div>
+	{% if hidden|default() %}
+		<span class="visually-hidden">{{ text|default('Loading') }}</span>
+	{% else %}
+		<span class="ms-2">{{ text|default('Loading...') }}</span>
+	{% endif %}
+</div>

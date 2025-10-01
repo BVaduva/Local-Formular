@@ -1,0 +1,119 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: rgb(224, 224, 224);
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  background: #f8f9fa;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+/* input[type="hidden"] {
+    display: none;
+} */
+
+#formFields {
+  max-width: 500px;
+}
+
+#formFields .form-label {
+  margin-bottom: -1rem;
+}
+
+#formFields .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+#submitButton,
+#linkButton {
+  margin-top: 10px;
+}
+
+#btn-create {
+  display: flex;
+  margin-top: 30px;
+}
+
+#roleId {
+  margin-top: 7px;
+}
+
+/*table {
+    font-size: 14px;
+}*/
+
+.hashed-password {
+  max-width: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  padding: 10px 15px;
+  margin-bottom: 5px !important;
+  font-size: 16px;
+}
+
+.navbar {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.alert {
+  z-index: 1050;
+}
+
+.carousel-item img {
+  max-width: 100%;
+  height: 150px;
+
+  /* object-fit: cover; */
+}
+
+.simple-list-example-scrollspy a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.simple-list-example-scrollspy a:hover {
+  background-color: #495776;
+  text-decoration: none;
+  color: inherit;
+}
+
+.simple-list-example-scrollspy a.active {
+  background-color: #495776; /* Light blue background */
+  /*border: 2px solid #007bff; /* Blue border */
+  /*border-radius: 0.25rem; /* Rounded corners */
+  /*color: #007bff; /* Text color for the active item */
+}
+
+.dropdown-menu {
+  max-height: 500px;
+  overflow-y: auto;
+}

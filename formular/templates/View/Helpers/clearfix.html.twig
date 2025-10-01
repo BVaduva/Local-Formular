@@ -1,0 +1,74 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Clearfix Helpers
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'clearfix.twig' with {
+                'clearfix_off': true,
+            }%}
+		</div>
+	</div>
+
+	<p class="mt-3">
+		Notice how the container above might not expand properly if there were no content inside it.
+		The background might not surround the floated buttons.
+	</p>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'clearfix.twig' with {
+                'clearfix_on': true,
+            }%}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'clearfix.twig' with {
+                'use_clearfix': true,
+                'include_template': 'dropdown.twig',
+                'template_data': dropdown,
+    } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'js', 
+            'code': '{# Usage in viewpage twig #}
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include "clearfix.twig" with {
+                "use_clearfix": true,
+                "include_template": "dropdown.twig",
+                "template_data": dropdown,
+    } %}
+		</div>
+	</div>
+'
+        } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'js', 
+            'code': '{# Usable part of clearfix.twig #}
+<div class="{{ use_clearfix ? "clearfix" : "" }}">
+	{% if include_template is defined %}
+		{% include include_template with template_data %}
+	{% endif %}
+</div>
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

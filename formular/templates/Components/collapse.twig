@@ -1,0 +1,14 @@
+<p class="d-inline-flex gap-1">
+	{% if href is defined %}
+		<a class="btn btn-{{ type|default('primary') }}" data-bs-toggle="collapse" href="#{{ href }}" role="button" aria-expanded="false" aria-controls="{{ href }}">
+			{{ button_text|default('Toggle') }}
+		</a>
+	{% endif %}
+
+	<button class="btn btn-{{ type|default('primary') }}" type="button" data-bs-toggle="collapse" data-bs-target="#{{ id|default('collapseExample') }}" aria-expanded="false" aria-controls="{{ id|default('collapseExample') }}">
+		{{ button_text|default('Toggle') }}
+	</button>
+</p>
+
+{% if horizontal is defined %}
+	<div class="collapse collapse-horizontal" id="{{ id|default(collapseWidthExample) }}" {% endif %} <div class="collapse" id="{{ id|default('collapseExample') }}"> <div class="card card-body"> {{ card_text|default('Card content goes here') }} </div> </div>

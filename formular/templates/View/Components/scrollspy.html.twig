@@ -1,0 +1,64 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Scrollspy Component
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'scrollspy.twig' with {'list_items': scrollspy_1} %}
+		</div>
+
+
+		<div class="col-md-6">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic scrollspy.twig #}
+<div class="row">
+	<div class="col-4">
+		<div id="simple-list-example" class="d-flex flex-column gap-2 simple-list-example-scrollspy text-center position-sticky" style="top: 80px;">
+			{% for item in list_items %}
+				<a class="p-1 rounded {% if loop.first %}active{% endif %}" href="#simple-list-item-{{ loop.index }}">{{ item.header }}</a>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="col-8">
+		<div data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="200" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+			{% for item in list_items %}
+				<h4 id="simple-list-item-{{ loop.index }}">{{ item.header }}</h4>
+				<p>{{ item.content|raw }}</p>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+'
+        } %}
+			<div class="col-md-12">
+				{% include 'codeblock.twig' with { 
+            'language': 'css', 
+            'code': '/* CSS Adjustments */
+
+.simple-list-example-scrollspy a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.simple-list-example-scrollspy a:hover {
+  background-color: #495776;
+  text-decoration: none;
+  color: inherit;
+}
+
+.simple-list-example-scrollspy a.active {
+  background-color: #495776; /* Light blue background */
+  /*border: 2px solid #007bff; /* Blue border */
+  /*border-radius: 0.25rem; /* Rounded corners */
+  /*color: #007bff; /* Text color for the active item */
+}
+'
+        } %}
+			</div>
+
+		{% endblock %}

@@ -1,0 +1,19 @@
+<h1>{{ form_title }}</h1>
+<div class="row" id="formFields">
+	<form
+		action="{{ form_action }}" method="{{ form_method }}">
+		{# Include input fields #}
+		{% for input in input_data %}
+				{% include '_input.twig' with input %}
+		{% endfor %}
+
+		{# Include multiple select fields if they exist #}
+		{% if select_data is defined and select_data is not empty %}
+			{% for select in select_data %}
+					{% include '_select.twig' with select %}
+			{% endfor %}
+		{% endif %}
+
+		{% include 'buttons.twig' with { buttons: buttons } %}
+	</form>
+</div>

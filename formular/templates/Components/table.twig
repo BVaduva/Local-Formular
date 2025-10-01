@@ -1,0 +1,41 @@
+<table class="table table-hover table-striped">
+	{% if show_header %}
+		<thead>
+			<tr>
+				{% for header in table_headers %}
+					<th>{{ header }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+	{% endif %}
+	<tbody>
+		{% if table_rows is not empty %}
+			{% for row in table_rows %}
+				<tr>
+					{% for column in row %}
+						<td>{{ column }}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+		{% else %}
+			{# Render input and select fields dynamically #}
+			<tr>
+				<div class="row" id"formfields">
+					<form action="{{ form_action }}" method="{{ form_method }}">
+						{% for input in input_data %}
+							<td>{% include '_input.twig' with input %}</td>
+						{% endfor %}
+						{% for select in select_data %}
+							<td>{% include '_select.twig' with select %}</td>
+						{% endfor %}
+						{% if show_buttons %}
+							<td>
+								{% include 'buttons.twig' with { buttons:buttons } %}
+							</td>
+						{% endif %}
+					</tr>
+				</form>
+			{% endif %}
+		</tbody>
+	</tbody>
+</table>

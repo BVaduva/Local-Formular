@@ -1,0 +1,12 @@
+<div class="dropdown">
+	<button class="btn btn-{{ button_type|default('primary') }} dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		{{ dropdown_label }}
+	</a>
+	<ul class="dropdown-menu">
+		{% for item in dropdown_items %}
+			<li>
+				<a class="dropdown-item" href="{{ item.href }}">{{ item.label }}</a>
+			</li>
+		{% endfor %}
+	</ul>
+</li>

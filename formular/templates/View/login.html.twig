@@ -1,0 +1,16 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Login Page
+{% endblock %}
+
+{% block content %}
+	{{ alerts|raw }}
+	{% include 'form.twig' with {
+        'form_title': form_title,
+        'form_action': form_action,
+        'form_method': form_method,
+        'input_data': input_data,
+        'buttons': buttons
+    } %}
+{% endblock %}

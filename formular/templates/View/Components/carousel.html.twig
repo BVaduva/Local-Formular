@@ -1,0 +1,90 @@
+{% extends 'base.twig' %}
+{% block title %}
+	Carousel
+{% endblock %}
+
+{% block content %}
+	<div class="row mt-4">
+		<div class="col-md-3">
+			{% include 'carousel.twig' with {
+        'slides': carousel,
+        'autoplay': true,
+        'id': 'carouselAutoplay',
+
+    } %}
+		</div>
+		<div class="col-md-5">
+			{% include 'card.twig' with {
+            'cards': cards,
+        } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-3">
+			{% include 'carousel.twig' with {
+            'slides': carousel_nav,
+            'show_nav': true,
+            'show_captions': true,
+            'id': 'carouselWithNav',
+        } %}
+		</div>
+		<div class="col-md-5">
+			{% include 'card.twig' with {
+            'cards': cards_nav,
+        } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic carousel.twig #}
+<div
+	id="carouselExampleIndicators" class="carousel slide" {% if autoplay %} data-bs-ride="carousel" data-bs-interval="{{ interval|default(5000) }}" {% endif %}>
+
+	<!-- Carousel Indicators -->
+	<div class="carousel-indicators">
+		{% for slide in slides %}
+			<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}" aria-current="{% if loop.first %}true{% else %}false{% endif %}" aria-label="Slide {{ loop.index }}"></button>
+		{% endfor %}
+	</div>
+
+	<!-- Carousel Inner -->
+	<div class="carousel-inner">
+		{% for slide in slides %}
+			<div class="carousel-item {% if loop.first %}active{% endif %}">
+				<img
+				src="{{ slide.image }}" class="d-block w-100" alt="{{ slide.alt }}">
+
+				<!-- Optional Title and Text -->
+				{% if show_captions and slide.title and slide.text %}
+					<div class="carousel-caption d-none d-md-block">
+						<h5>{{ slide.title }}</h5>
+						<p>{{ slide.text }}</p>
+					</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+
+	<!-- Left and Right Navigation Buttons -->
+	{% if show_nav %}
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	{% endif %}
+</div>
+
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	List Groups Component
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'list_group.twig' %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic dropdown_button.twig #}
+<div class="dropdown">
+	<button class="btn btn-{{ button_type|default("primary") }} dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		{{ dropdown_label }}
+	</a>
+	<ul class="dropdown-menu">
+		{% for item in dropdown_items %}
+			<li>
+				<a class="dropdown-item" href="{{ item.href }}">{{ item.label }}</a>
+			</li>
+		{% endfor %}
+	</ul>
+</li>
+
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

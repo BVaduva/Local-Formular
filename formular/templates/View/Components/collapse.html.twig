@@ -1,0 +1,86 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Collapse Component
+{% endblock %}
+
+{% block content %}
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'collapse.twig' with vertical_collapse %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'collapse.twig' with horizontal_collapse %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic collapse.twig #}
+<p class="d-inline-flex gap-1">
+	{% if href is defined %}
+		<a class="btn btn-{{ type|default("primary") }}" data-bs-toggle="collapse" href="#{{ href }}" role="button" aria-expanded="false" aria-controls="{{ href }}">
+			{{ button_text|default("Toggle") }}
+		</a>
+	{% endif %}
+
+	<button class="btn btn-{{ type|default("primary") }}" type="button" data-bs-toggle="collapse" data-bs-target="#{{ id|default("collapseExample") }}" aria-expanded="false" aria-controls="{{ id|default("collapseExample") }}">
+		{{ button_text|default("Toggle") }}
+	</button>
+</p>
+
+{% if horizontal is defined %}
+	<div class="collapse collapse-horizontal" id="{{ id|default(collapseWidthExample) }}" {% endif %} <div class="collapse" id="{{ id|default("collapseExample") }}"> <div class="card card-body"> {{ card_text|default("Card content goes here") }} </div> </div>
+
+'
+        } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'collapse_multi.twig' with multi_collapse %}
+
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic collapse_multi.twig #}
+<p class="d-inline-flex gap-1">
+	<a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">{{ button1_text }}
+	</a>
+	<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">{{ button2_text }}
+	</button>
+	<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">{{ button_multi_text }}</button>
+</p>
+<div class="row">
+	<div class="col">
+		<div class="collapse multi-collapse" id="multiCollapseExample1">
+			<div class="card card-body">
+				{{ card1_text }}
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="collapse multi-collapse" id="multiCollapseExample2">
+			<div class="card card-body">
+				{{ card2_text }}
+			</div>
+		</div>
+	</div>
+</div>
+
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

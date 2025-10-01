@@ -1,0 +1,84 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Progress Component
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'progress.twig' with {
+                'label': base.label,
+                'now': base.now,
+                'min': base.min,
+                'max': base.max,
+                'height': base.height,
+                'class': base.class,
+                'text': base.text,
+            } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'progress.twig' with {
+                'label': text.label,
+                'now': text.now,
+                'min': text.min,
+                'max': text.max,
+                'height': text.height,
+                'class': text.class,
+                'text': text.text
+            } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'progress.twig' with {
+                'striped': ' ',
+                'label': stripped.label,
+                'now': stripped.now,
+                'min': stripped.min,
+                'max': stripped.max,
+                'height': stripped.height,
+                'class': stripped.class,
+                'text': stripped.text,
+                'animated': false,
+            } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'progress.twig' with {
+                'striped': ' ',
+                'label': animated.label,
+                'now': animated.now,
+                'min': animated.min,
+                'max': animated.max,
+                'height': animated.height,
+                'class': animated.class,
+                'text': animated.text,
+                'animated': ' ',
+            } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic progress.twig #}
+<div class="progress" role="progressbar" aria-label="{{ label }}" aria-valuenow="{{ now }}" aria-valuemin="{{ min|default("0") }}" aria-valuemax="{{ max|default("50") }}" style="height: {{ height|default("10") }}px">
+	<div class="progress-bar {% if striped %} progress-bar-striped {% endif %} {% if animated %} progress-bar-animated {% endif %} bg-{{ class|default("primary") }}" style="width: {{ now }}%">
+		{{ text|default("") }}
+	</div>
+</div>
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Offcanvas Component
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'offcanvas.twig' with offcanvas_left.offcanvas_left %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'offcanvas.twig' with offcanvas_right.offcanvas_right %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'offcanvas.twig' with offcanvas_top.offcanvas_top %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'offcanvas.twig' with offcanvas_bottom.offcanvas_bottom %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic offcanvas.twig #}
+<button class="btn btn-{{ button_type|default("primary") }}" type="button" data-bs-toggle="offcanvas" data-bs-target="#{{ offcanvas_id }}" aria-controls="{{ offcanvas_id }}">
+    {{ button_text|default("Open Offcanvas") }}
+</button>
+
+<div class="offcanvas offcanvas-{{ position|default("start") }}" 
+     data-bs-scroll="{{ scroll|default("false") }}" 
+     data-bs-backdrop="{{ backdrop|default("true") }}" 
+     tabindex="-1" 
+     id="{{ offcanvas_id }}" 
+     aria-labelledby="{{ offcanvas_id }}Label">
+     
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="{{ offcanvas_id }}Label">{{ title|default("Offcanvas Title") }}</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  
+  <div class="offcanvas-body">
+    {{ content|default("Offcanvas content goes here.") }}
+  </div>
+</div>
+
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

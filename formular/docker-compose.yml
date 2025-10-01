@@ -1,0 +1,38 @@
+services:
+  web:
+    build: .
+    container_name: my-web
+    volumes:
+      #- ./public:/var/www/html
+      #- ./src:/var/www/src
+      #- ./config:/var/www/config
+      #- ./vendor:/var/www/vendor
+      - .:/var/www/html
+      - ./ZZZ-apache-site.conf:/etc/apache2/conf-enabled/ZZZ-apache-site.conf
+      - ./ZZZ-php.ini:/usr/local/etc/php/conf.d/ZZZ-php.ini
+    ports:
+      - "8001:80"
+    depends_on:
+      - db
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  db:
+    image: mysql:latest
+    container_name: my-db
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3100:3306"
+    volumes:
+      - local-data:/var/lib/mysql
+      - ./ZZZ-mysql.conf:/etc/mysql/conf.d/ZZZ-mysql.conf
+
+volumes:
+  local-data:

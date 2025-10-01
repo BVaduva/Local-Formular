@@ -1,0 +1,41 @@
+{# Active Button Group #}
+{% if show_active %}
+	<div class="btn-group">
+		{% for btn in active_buttons %}
+			{% if loop.first %}
+				<a href="{{ btn.link|default('#') }}" class="btn btn-{{ btn.type|default('primary') }} active" aria-current="page">
+					{{ btn.active_link_text|default('Active Button') }}
+				</a>
+			{% else %}
+				<a href="{{ btn.link|default('#') }}" class="btn btn-{{ btn.type|default('primary') }}">
+					{{ btn.link_text|default('Button') }}
+				</a>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endif %}
+
+{# Outlined Button Group #}
+{% if show_outlined %}
+	<div class="btn-group">
+		{% for btn in outlined_buttons %}
+			<a href="{{ btn.link|default('#') }}" class="btn btn-outline-{{ btn.type|default('primary') }}">
+				{{ btn.link_text|default('Button') }}
+			</a>
+		{% endfor %}
+	</div>
+{% endif %}
+
+{# Checkbox Button Group #}
+{% if show_checkbox %}
+	<div class="btn-group">
+		{% for btn in checkbox_buttons %}
+			<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+				<input type="checkbox" class="btn-check" id="{{ btn.id }}" autocomplete="{{ btn.autocomplete|default('off') }}">
+				<label class="btn btn-outline-{{ btn.type|default('primary') }}" for="{{ btn.id }}">{{ btn.text }}</label>
+			</div>
+
+		{% endfor %}
+	{% endif %}
+
+	{# Could include Radio Buttons and more. #}

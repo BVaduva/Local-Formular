@@ -1,0 +1,58 @@
+{% extends "base.twig" %}
+
+{% block title %}
+	Badges Components
+{% endblock %}
+
+{# Badge pill halfway covered by navbar. #}
+{% block content %}
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% for badge in badges %}
+				{% if loop.index == 1 %}
+					{% include 'badges.twig' with {
+                'badge': badge,
+                'counter': true,
+            } %}
+				{% elseif loop.index == 2 %}
+					{% include 'badges.twig' with {
+                'badge': badge,
+                'pill': true,
+            } %}
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with {
+    'language': 'twig',
+    'code': '{# position-relative has to be enabled or pill wont show. #}
+<button type="button" class="btn btn-{{ badge.button_class|default("primary") }} position-relative">
+	{{ badge.button_text }}
+
+	{# Display the counter if "counter" is true #}
+	{% if counter %}
+		<span class="badge text-bg-{{ badge.badge_class|default("secondary") }}">
+			{{ badge.badge_text }}
+		</span>
+	{% endif %}
+
+	{# Display the pill if "pill" is true #}
+	{% if pill %}
+		<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-{{ badge.pill_class|default("danger") }}">
+			99+
+			<span class="visually-hidden">
+				{{ badge.pill_hidden_msg }}
+			</span>
+		</span>
+	{% endif %}
+</button>
+
+'
+} %}
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Modal Component
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'modal.twig' with {
+                'button_text': base.button_text,
+                'modal_id': base.modal_id,
+                'title': base.title,
+                'content': base.content,
+				'buttons': base.buttons,
+				'static': base.static,
+                
+            }%}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'modal.twig' with {
+				'modal_button': static.modal_button,
+                'button_text': static.button_text,
+                'modal_id': static.modal_id,
+                'title': static.title,
+				'static': static.static,
+                'content': static.content,
+				'buttons': static.buttons,
+                
+            }%}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'modal.twig' with {
+				'modal_button': scroll.modal_button,
+                'button_text': scroll.button_text,
+                'modal_id': scroll.modal_id,
+				'scrollable': scroll.scrollable,
+                'title': scroll.title,
+				'static': scroll.static,
+                'content': scroll.content,
+				'buttons': scroll.buttons,                
+            }%}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'modal.twig' with {
+				'popover': true,
+				'tooltip': false,
+				'modal_button': popover.modal_button,
+                'button_text': popover.button_text,
+                'modal_id': popover.modal_id,
+                'title': popover.title,
+				'static': popover.static,
+				'body_header': popover.body_header,
+                'content': popover.content,
+				'buttons': popover.buttons,                
+            }%}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'modal.twig' with {
+				'tooltip': true,
+				'popover': false,
+				'modal_button': tooltip.modal_button,
+                'button_text': tooltip.button_text,
+                'modal_id': tooltip.modal_id,
+                'title': tooltip.title,
+				'static': tooltip.static,
+				'body_header': tooltip.body_header,
+                'content': tooltip.content,
+				'buttons': tooltip.buttons,                
+            }%}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic modal.twig #}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-{{ modal_button|default("primary") }}" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
+    {{ button_text }}
+</button>
+
+<div class="modal fade" id="{{ modal_id }}" 
+    {% if static is defined and static %} data-bs-backdrop="static" {% endif %} 
+    tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
+
+    <!-- Modal Dialog -->
+    <div class="modal-dialog {{ size|default("modal-md") }} {% if scrollable %} modal-dialog-scrollable {% endif %}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{ modal_id }}Label">{{ title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% if body_header is defined and body_header %}
+                    <h2 class="fs-5">{{ body_header }}</h2>
+
+                    {% if popover is defined and popover %}
+                        <p>
+                            <button class="btn btn-{{ popover_button|default("secondary") }}" 
+                                data-bs-toggle="popover" 
+                                title="{{ popover_title|default("popover title") }}" 
+                                data-bs-content="{{ popover_content|default("popover content") }}">
+                                {{ popover_body_content|default("popover body content") }}
+                            </button>
+                        </p>
+                    {% endif %}
+
+                    {% if tooltip is defined and tooltip %}
+                        <p>
+                            <a href="{{ tooltip_link|default("#") }}" 
+                               data-bs-toggle="tooltip" 
+                               title="{{ tooltip_content|default("tooltip content") }}">
+                                {{ tooltip_body_content|default("Tooltip body content") }}
+                            </a>
+                        </p>
+                    {% endif %}
+                {% endif %}
+
+                {{ content|raw }}
+            </div>
+            <div class="modal-footer">
+                {% for button in buttons %}
+                    <button type="button" class="btn btn-{{ button.class|default("primary") }}" 
+                        {% if button.dismiss %} data-bs-dismiss="modal" {% endif %}>
+                        {{ button.text }}
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

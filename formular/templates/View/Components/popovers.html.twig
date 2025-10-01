@@ -1,0 +1,57 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Popovers Component
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'popovers.twig' with {
+                'size': top.size,
+                'class': top.class,
+                'placement': top.placement,
+                'content': top.content,
+                'button_text': top.button_text
+            } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'popovers.twig' with {
+                'size': right.size,
+                'class': right.class,
+                'placement': right.placement,
+                'content': right.content,
+                'button_text': right.button_text
+            } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'popovers.twig' with {
+                'size': bottom.size,
+                'class': bottom.class,
+                'placement': bottom.placement,
+                'content': bottom.content,
+                'button_text': bottom.button_text
+            } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+                'language': 'twig', 
+                'code': '{# Basic popovers.twig #}
+<button type="button" class="btn {% if size %} btn-{{ size|default("sm") }} {% endif %} btn-{{ class|default("primary") }}" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="{{ placement|default("top") }}" data-bs-content="{{ content }}">
+    {{ button_text }}
+</button>'
+            } %}
+		</div>
+	</div>
+
+{% endblock %}

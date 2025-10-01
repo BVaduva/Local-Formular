@@ -1,0 +1,113 @@
+{% set roleTitles = {
+    1: 'Admin Panel',
+    2: 'Editor Panel',
+    3: 'User Panel'
+} %}
+
+{% set roleTitle = roleTitles[role_id] ?? 'User Panel' %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+	<a class="navbar-brand" href="#">{{ roleTitle }}</a>
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+		<ul class="navbar-nav">
+
+			{% set dropdown_items = [] %}
+
+			{% if role_id < 3 %}
+				{% set dropdown_items = dropdown_items|merge([{'href': '/show_users.php', 'label': 'Userlist'}]) %}
+			{% endif %}
+
+			{% set dropdown_items = dropdown_items|merge([
+    {'href': '/user_dashboard.php', 'label': 'Profile'},
+    {'href': '#', 'label': 'Placeholder'}
+]) %}
+
+			{% include 'dropdown.twig' with {
+    'dropdown_label': 'Navigation',
+    'dropdown_items': dropdown_items
+} %}
+			{# Left out components:
+			- Navbar
+			- Placeholders
+									#}
+			{% include 'dropdown.twig' with {
+				'dropdown_label': 'Components',
+				'dropdown_items': [
+					{'href': '/components/accordion.php', 'label': 'Accordion'},
+					{'href': '/components/alerts.php', 'label': 'Alerts'},
+					{'href': '/components/badges.php', 'label': 'Badges'},
+					{'href': '/components/breadcrumbs.php', 'label': 'Breadcrumb'},
+					{'href': '/components/buttons.php', 'label': 'Button'},
+					{'href': '/components/button_groups.php', 'label': 'Button group'},
+					{'href': '/components/card.php', 'label': 'Card'},
+					{'href': '/components/carousel.php', 'label': 'Carousel'},
+					{'href': '/components/close_button.php', 'label': 'Close button'},
+					{'href': '/components/collapse.php', 'label': 'Collapse'},
+					{'href': '/components/dropdown.php', 'label': 'Dropdown'},
+					{'href': '/components/list_group.php', 'label': 'List group WIP'},
+					{'href': '/components/modal.php', 'label': 'Modal'},
+					{'href': '/components/nav_tabs.php', 'label': 'Navs & Tabs'},
+					{'href': '/components/offcanvas.php', 'label': 'Offcanvas'},
+					{'href': '/components/pagination.php', 'label': 'Pagination'},
+					{'href': '/components/popovers.php', 'label': 'Popovers'},
+					{'href': '/components/progress.php', 'label': 'Progress'},
+					{'href': '/components/scrollspy.php', 'label': 'Scrollspy'},
+					{'href': '/components/spinners.php', 'label': 'Spinners'},
+					{'href': '/components/toasts.php', 'label': 'Toasts'},
+					{'href': '/components/tooltips.php', 'label': 'Tooltips'},
+				]
+			} %}
+
+			{% include 'dropdown.twig' with {
+				'dropdown_label': 'Helpers',
+				'dropdown_items': [
+					{'href': '/helpers/clearfix.php', 'label': 'Clearfix'},
+					{'href': '/helpers/color_and_background.php', 'label': 'Color and Background'},
+				]
+			} %}
+
+			{% include 'dropdown.twig' with {
+				'dropdown_label': 'Utilities',
+				'dropdown_items': [
+					{'href': 'accordion.php', 'label': 'Accordions'},
+				]
+			} %}
+
+			{% include 'dropdown.twig' with {
+				'dropdown_label': 'Roles',
+				'dropdown_items': [
+					{'href': '/utils/role_change.php?role_id=1', 'label': 'Admin'},
+					{'href': '/utils/role_change.php?role_id=2', 'label': 'Editor'},
+					{'href': '/utils/role_change.php?role_id=3', 'label': 'User'},
+    ]
+} %}
+
+		</ul>
+
+		<ul class="navbar-nav ms-auto">
+			{% if current_user %}
+				<li class="nav-item">
+					<span class="navbar-text">
+						Welcome,
+						{{ current_user|capitalize }}!
+					</span>
+				</li>
+				<li class="nav-item">
+					<span class="navbar-text ms-3">
+						Role ID:
+						{{ role_id }}
+					</span>
+				</li>
+				<li class="nav-item ms-3">
+					<form action="" method="post">
+						<input type="hidden" name="action" value="logout">
+						<button type="submit" class="btn btn-outline-primary">Logout</button>
+					</form>
+				</li>
+			{% endif %}
+		</ul>
+	</div>
+</nav>

@@ -1,0 +1,12 @@
+{# Prism.js and its CSS should be included in your base layout to handle highlighting #}
+{% block styles %}
+	<link href="/css/prism.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+	<script src="/js/prism.js"></script>
+
+	{# Add specific languages if needed #}
+{% endblock %}
+
+<pre><code class="language-{{ language }}">{{ code }}</code></pre>

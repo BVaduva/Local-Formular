@@ -1,0 +1,55 @@
+{% extends "base.twig" %}
+
+{% block title %}
+	Buttons Components
+{% endblock %}
+
+{# Badge pill halfway covered by navbar. #}
+{% block content %}
+	<div class="row mt-4">
+		<div
+			class="col-md-8">
+			{# Passing key:value paires because of 2d array #}
+			{% include 'buttons.twig' with {'buttons': buttons} %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		{% include 'buttons.twig' with {'buttons': buttons_outline} %}
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with {
+    'language': 'twig',
+    'code': '<div class="button-container">
+	{% for button in buttons %}
+		{% if button.href %}
+			<!-- Anchor tag to act as a link button -->
+			<a href="{{ button.href }}" class="{{ button.class|default("btn btn-primary") }}" id="{{ button.id|default("linkButton") }}" role="button">
+				{{ button.text }}
+			</a>
+		{% else %}
+			<!-- Default form and button structure -->
+			<form action="{{ button.form_action }}" method="{{ button.form_method}}" style="display:inline;" {% if button.onsubmit %} onsubmit="{{ button.onsubmit }}" {% endif %}>
+				<button type="{{ button.type|default("submit") }}" class="{{ button.class|default("btn btn-primary") }}" id="{{ button.id|default("submitButton") }}">
+					{{ button.text }}
+				</button>
+
+				{# Loop through hidden fields if they exist and render them dynamically #}
+				{% if button.hidden is defined %}
+					{% for name, value in button.hidden %}
+						<input type="hidden" name="{{ name }}" value="{{ value }}">
+					{% endfor %}
+				{% endif %}
+			</form>
+		{% endif %}
+	{% endfor %}
+</div>
+
+'
+} %}
+		</div>
+	</div>
+
+{% endblock %}

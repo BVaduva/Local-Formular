@@ -1,0 +1,41 @@
+{# Button to trigger the toast, shown only if button_enabled is true #}
+{% set button_id = 'dynamicToastBtn' %}
+<button type="button"
+        class="btn btn-{{ button_color|default('primary') }}"
+        id="{{ button_id }}">
+    {{ toast_data[0].button_text }} {# Start with the text for the first toast #}
+</button>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    {% for toast in toast_data %}
+        <div
+            id="{{ toast.id }}"
+            class="toast"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+            data-bs-autohide="{{ toast.autohide|default('true') }}"
+            data-bs-delay="{{ toast.delay|default(5000) }}"
+            data-button-text="{{ toast.button_text }}">
+
+            {% if toast.header_enabled %}
+                <div class="toast-header">
+                    <strong class="me-auto">{{ toast.title|default('Bootstrap') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            {% endif %}
+
+            <div class="toast-body">
+                {{ toast.message|default('Hello, world! This is a toast message.') }}
+                {% if not toast.header_enabled %}
+                    {# Show the close button in the body if no header is present #}
+                    <button type="button" 
+                    class="btn-close position-absolute end-0 me-3" 
+                    data-bs-dismiss="toast" 
+                    aria-label="Close"></button>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+

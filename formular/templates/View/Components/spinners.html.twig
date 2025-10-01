@@ -1,0 +1,65 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Spinners Component
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-1">
+			{% include 'spinners.twig' with {
+                'type': border.type,
+                'color': border.color,
+                'text': border.text,
+                'hidden': true,
+            } %}
+		</div>
+		<div class="col-md-1">
+			{% include 'spinners.twig' with {
+                'type': 'border',
+                'color': 'success',
+                'text': '',
+                'hidden': true,
+            } %}
+		</div>
+
+		<div class="col-md-1">
+			{% include 'spinners.twig' with {
+                'type': 'border',
+                'color': 'danger',
+                'text': '',
+                'hidden': true,
+            } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'spinners.twig' with {
+                'type': grow.type,
+                'color': grow.color,
+                'text': grow.text,
+            } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic spinners.twig #}
+<div class="d-flex align-items-center">
+	<div class="spinner-{{ type|default("border") }} text-{{ color|default("primary") }}" role="status"></div>
+	{% if hidden|default() %}
+		<span class="visually-hidden">{{ text|default("Loading") }}</span>
+	{% else %}
+		<span class="ms-2">{{ text|default("Loading...") }}</span>
+	{% endif %}
+</div>
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

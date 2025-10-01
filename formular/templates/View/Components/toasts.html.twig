@@ -1,0 +1,111 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Toasts Component
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'toasts.twig' with {
+				'toast_data': toast_data, 
+				} %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic toast.twig #}
+{# Button to trigger the toast, shown only if button_enabled is true #}
+{% set button_id = "dynamicToastBtn" %}
+<button type="button"
+        class="btn btn-{{ button_color|default("primary") }}"
+        id="{{ button_id }}">
+    {{ toast_data[0].button_text }} {# Start with the text for the first toast #}
+</button>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    {% for toast in toast_data %}
+        <div
+            id="{{ toast.id }}"
+            class="toast"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+            data-bs-autohide="{{ toast.autohide|default("true") }}"
+            data-bs-delay="{{ toast.delay|default(5000) }}"
+            data-button-text="{{ toast.button_text }}">
+
+            {% if toast.header_enabled %}
+                <div class="toast-header">
+                    <strong class="me-auto">{{ toast.title|default("Bootstrap") }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            {% endif %}
+
+            <div class="toast-body">
+                {{ toast.message|default("Hello, world! This is a toast message.") }}
+                {% if not toast.header_enabled %}
+                    {# Show the close button in the body if no header is present #}
+                    <button type="button" 
+                    class="btn-close position-absolute end-0 me-3" 
+                    data-bs-dismiss="toast" 
+                    aria-label="Close"></button>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+'
+        } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'js', 
+            'code': '{# toasts.js #}
+document.addEventListener("DOMContentLoaded", function () {
+  const toastTrigger = document.getElementById("dynamicToastBtn");
+  const toastElements = document.querySelectorAll(".toast");
+  let currentToastIndex = 0;
+
+  if (toastTrigger && toastElements.length > 0) {
+    // Set initial button text for the first toast
+    toastTrigger.textContent =
+      toastElements[currentToastIndex].getAttribute("data-button-text");
+
+    toastTrigger.addEventListener("click", () => {
+      // Get the current toast element
+      const toastElement = toastElements[currentToastIndex];
+
+      // Check the autohide value from data attribute
+      const autohideValue =
+        toastElement.getAttribute("data-bs-autohide") === "true";
+
+      const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastElement, {
+        autohide: autohideValue,
+      });
+
+      toastBootstrap.show();
+
+      // Update index for next toast
+      currentToastIndex = (currentToastIndex + 1) % toastElements.length;
+
+      // Update button text to the next toasts button text
+      toastTrigger.textContent =
+        toastElements[currentToastIndex].getAttribute("data-button-text");
+    });
+  }
+});
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

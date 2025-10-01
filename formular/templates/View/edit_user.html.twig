@@ -1,0 +1,18 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Edit User
+{% endblock %}
+
+{% block content %}
+	{{ alerts|raw }}
+	{% include 'table_user.twig' with { 'users': users } %}
+	{% include 'form.twig' with { 
+        'form_title': form_title,
+        'form_action': form_action,
+        'form_method': form_method,
+        'input_data': input_data,
+        'select_data': select_data,
+        'buttons': buttons 
+    } %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{
+    "require": {
+        "twig/twig": "^3.0",
+        "monolog/monolog": "^3.0",
+        "erusev/parsedown": "^1.7",
+        "bramus/monolog-colored-line-formatter": "~3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/Classes/"
+        }
+    }
+}

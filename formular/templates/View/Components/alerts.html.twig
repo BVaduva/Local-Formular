@@ -1,0 +1,35 @@
+{% extends "base.twig" %}
+
+{% block title %}
+	Alerts Components
+{% endblock %}
+
+{% block content %}
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% for alert in alerts %}
+				{% include 'alerts.twig' with {
+        'alert_message': alert.alert_message,
+        'alert_type': alert.alert_type
+    } %}
+			{% endfor %}
+
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with {
+    'language': 'twig',
+    'code': '{% if alert_message is not null %}
+	<div class="alert {{ alert_type }} alert-dismissible fade show" role="alert">
+		{{ alert_message }}
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+{% endif %}
+'
+} %}
+		</div>
+	</div>
+
+{% endblock %}

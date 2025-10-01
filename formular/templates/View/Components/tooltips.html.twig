@@ -1,0 +1,92 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+	Tooltips Component
+{% endblock %}
+
+{% block content %}
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with {
+    'language': 'php',
+    'code': '
+// Function "parseToolips" allows to format text directly and trigger tooltips.
+// Steps:
+
+$content = file_get_contents(__DIR__ . "path_to_file");
+$parsedContentWithTooltips = $uiComponent->parseTooltips($content, "link_color");
+$parsedown = new Parsedown();
+$parsedContent = $parsedown->text($parsedContentWithTooltips); // Parsedown to format to HTML
+
+//Format (without both " at the start/end):
+"%% "word or text"("tooltip_text", position) %%"
+'
+} %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-6">
+			{% include 'tooltips.twig' %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic tooltips.twig #}
+<div class="article-content">
+	{{ article_content|raw }}
+</div>
+'
+        } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'js', 
+            'code': '{# Enable Tooltips in JS #}
+// Enable tooltips
+const tooltipTriggerList = document.querySelectorAll(
+  "[data-bs-toggle="tooltip"]"
+);
+const tooltipList = [...tooltipTriggerList].map(
+  (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+);
+'
+        } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'php', 
+            'code': '{# PHP Function #}
+    public function parseTooltips($content) {
+        // Regular expression to match the pattern: %% "Text"("tooltip_text", position) %%
+        // Both " at the start and end need to be a single quote mark (Twig formatting problem to show here)
+        $pattern = "/%%\s*"([^"]+)"\s*\(\s*"([^"]+)"\s*,\s*(top|bottom|left|right)\s*\)\s*%%/";
+        
+        // Replace the pattern with HTML for tooltip
+        $content = preg_replace_callback($pattern, function ($matches) {
+            $text = htmlspecialchars($matches[1]); // Captured text for the tooltip
+            $tooltipText = htmlspecialchars($matches[2]); // Captured tooltip text
+            $position = $matches[3]; // Captured position without extra quotes
+    
+            // Return the HTML for the tooltip as a link
+            return "<a href="#" style="text-decoration: underline; color: blue;" data-bs-toggle="tooltip" data-bs-title="" . $tooltipText . "" data-bs-placement="" . $position . "">" . $text . "</a>";
+        }, $content);
+    
+        return $content;
+    }
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.twig' %}
+{% block title %}
+	Cards
+{% endblock %}
+
+{% block content %}
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'card_with_tabs.twig' with tabs %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic card_with_tabs.twig #}
+<div class="card">
+	<div class="card-header">
+		<ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+			{% for tab in tabs %}
+				<li class="nav-item">
+					<a class="nav-link {% if loop.first %}active{% endif %}" id="{{ tab.title|lower }}-tab" data-bs-toggle="tab" href="#{{ tab.title|lower }}" role="tab" aria-controls="{{ tab.title|lower }}" aria-selected="{% if loop.first %}true{% else %}false{% endif %}">{{ tab.title }}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="card-body">
+		<div class="tab-content" id="myTabContent">
+			{% for tab in tabs %}
+				<div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="{{ tab.title|lower }}" role="tabpanel" aria-labelledby="{{ tab.title|lower }}-tab">
+					<p>{{ tab.content|raw }}</p>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+'
+        } %}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-4">
+			{% include 'card.twig' with {
+                'cards': cards,
+                'card_item': {cards: 'card_item'},
+                'card_link': {cards: 'card_link'},
+            }%}
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-8">
+			{% include 'codeblock.twig' with { 
+            'language': 'twig', 
+            'code': '{# Basic card.twig #}
+{% for card in cards %}
+	<div class="card" style="{{ style|default("width: 18rem;") }}">
+		{% if card.img_src is defined and card.img_src %}
+			<img src="{{ card.img_src }}" class="card-img-top" alt="...">
+		{% endif %}
+		<div class="card-body">
+			<h5 class="card-title">{{ card.title|default("Title") }}</h5>
+			<p class="card-text">{{ card.text|default("Some Text") }}</p>
+		</div>
+
+		{% if card.card_item is defined %}
+			<ul class="list-group list-group-flush">
+				{% for item in card.card_item %}
+					<li class="list-group-item">{{ item.text|default("Item") }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		{% if card.card_link is defined %}
+			<div class="card-body">
+				{% for link in card.card_link %}
+					<a href="{{ link.link|default("#") }}" class="card-link">{{ link.text|default("Link") }}</a>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+{% endfor %}
+'
+        } %}
+		</div>
+	</div>
+
+{% endblock %}

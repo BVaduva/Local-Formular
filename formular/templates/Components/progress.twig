@@ -1,0 +1,5 @@
+<div class="progress" role="progressbar" aria-label="{{ label }}" aria-valuenow="{{ now }}" aria-valuemin="{{ min|default('0') }}" aria-valuemax="{{ max|default('50') }}" style="height: {{ height|default('10') }}px">
+	<div class="progress-bar {% if striped %} progress-bar-striped {% endif %} {% if animated %} progress-bar-animated {% endif %} bg-{{ class|default('primary') }}" style="width: {{ now }}%">
+		{{ text|default('') }}
+	</div>
+</div>

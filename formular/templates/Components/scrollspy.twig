@@ -1,0 +1,17 @@
+<div class="row">
+	<div class="col-4">
+		<div id="simple-list-example" class="d-flex flex-column gap-2 simple-list-example-scrollspy text-center position-sticky" style="top: 80px;">
+			{% for item in list_items %}
+				<a class="p-1 rounded {% if loop.first %}active{% endif %}" href="#simple-list-item-{{ loop.index }}">{{ item.header }}</a>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="col-8">
+		<div data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="200" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+			{% for item in list_items %}
+				<h4 id="simple-list-item-{{ loop.index }}">{{ item.header }}</h4>
+				<p>{{ item.content|raw }}</p>
+			{% endfor %}
+		</div>
+	</div>
+</div>
